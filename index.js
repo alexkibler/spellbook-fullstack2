@@ -11,9 +11,11 @@ app.use(bodyParser.urlencoded({
 }));
 // views is directory for all template files
 app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
-app.get('/', function(request, response) {
-  response.render('pages/index');
+app.engine('html', require('ejs').renderFile);
+
+app.get('/', function (req, res)
+{
+    res.render('pages/index.html');
 });
 
 var spells = require('./spell_routes.js')(app);
