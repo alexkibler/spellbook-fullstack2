@@ -1,0 +1,68 @@
+var _ = require('lodash');
+var Spell = require('./spell_model.js');
+
+module.exports = function(app) {
+    
+    app.post('/api/spell', function (req, res) {
+        var newSpell = new Spell(req.body);
+        newSpell.save(function(err) {
+           if (err) {
+               res.json({info: 'error during spell create', error: err})
+           } 
+        });
+        res.json({info: 'spell created successfully'});
+    });
+    
+    app.get('/api/spell', function (req, res) {
+        Spell.find(function(err, spells) {
+            if (err) {
+                res.json({info:'an error during find spells',error:err});
+            };
+            res.json({
+                info: 'spells found successfully',
+                data: spells
+            });
+        })
+    });
+    
+    app.get('/api/spell/:id', function (req, res) {
+        Spell.findById(req.params.id, function(err,spell) {
+            if (err) {
+                res.json({info:'error getting spell',error:err});
+            };
+            if (spell) {
+                res.json({info:'spell found successfully',data: spell});
+            } else {
+                res.json({info:'spell not found'});
+            }
+        })
+    });
+    
+    app.put('/spell/:id', function (req, res) {
+        Spell.findById(req.params.id, function(err,spell) {
+            if (err) {
+                res.json({info:'error during find  spell',error:err});
+            };
+            if (spell) {
+                _.merge(spell, req.body);
+                spell.save(function(err) {
+                    if (err) {
+                        res.json({info:'error during find spell',error:err});
+                    };
+                    res.json({info:'spell updated successfully'});
+                });
+            } else {
+               res.json({info:'spell not found'}); 
+            }
+        })
+    });
+    
+    app.delete('/spell/:id', function (req, res) {
+        Spell.findByIdAndRemove(req.params.id, function(err) {
+            if (err) {
+              res.json({info: 'error during remove spell', error: err});  
+            };
+        })
+        res.json({info: 'spell removed successfully'});
+    });
+};
