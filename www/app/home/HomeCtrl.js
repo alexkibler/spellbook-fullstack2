@@ -15,6 +15,7 @@
 
         function init() {
             vm.title = "HomeCtrl";
+            vm.posts = {};
             postFactory.query(function(data){
                 vm.posts = data;
             });
