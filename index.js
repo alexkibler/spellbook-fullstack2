@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://alex:spartan117@ds061385.mongolab.com:61385/heroku_8rqzxd8x');
+var configConstants = require('./serverConfig.js')
+mongoose.connect(configConstants.mongoUri);
 app.use(express.static(__dirname + '/www'));
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json({limit: '50mb'}));
