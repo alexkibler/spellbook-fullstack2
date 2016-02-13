@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var configConstants = require('./serverConfig.js')
-mongoose.connect(configConstants.mongoUri);
+mongoose.connect(process.env.MONGOLAB_URI || configConstants.mongoUri);
 app.use(express.static(__dirname + '/www'));
 app.set('port', (process.env.PORT || 5000));
 app.use(bodyParser.json({limit: '50mb'}));
