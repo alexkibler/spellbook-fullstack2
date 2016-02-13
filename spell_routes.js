@@ -18,10 +18,7 @@ module.exports = function(app) {
             if (err) {
                 res.json({info:'an error during find spells',error:err});
             };
-            res.json({
-                info: 'spells found successfully',
-                data: spells
-            });
+            res.json(spells);
         })
     });
     
@@ -31,7 +28,7 @@ module.exports = function(app) {
                 res.json({info:'error getting spell',error:err});
             };
             if (spell) {
-                res.json({info:'spell found successfully',data: spell});
+                res.json(spell);
             } else {
                 res.json({info:'spell not found'});
             }

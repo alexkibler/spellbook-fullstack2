@@ -1,0 +1,51 @@
+<div class="content text-center">
+
+    <br/>
+    <h4>Spellbook!</h4>
+    <table class="table-striped table-condensed" style="width:100%">
+        <thead>
+        <tr>
+            <th class="text-center" ng-click="orderbyField='name'; reverseSort = !reverseSort">
+                <h4>Name <span ng-show="orderbyField == 'name'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+            </th>
+            <th class="text-center" ng-click="orderbyField='level'; reverseSort = !reverseSort">
+                <h4>Level<span ng-show="orderbyField == 'level'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+            </th>
+            <th class="text-center" ng-click="orderbyField='class_name'; reverseSort = !reverseSort">
+                <h4>Class<span ng-show="orderbyField == 'class'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+            </th>
+            <th>Remove</th>
+        </tr>
+        <tr>
+            <th class="text-center">
+                <input type="text" class="form-control" ng-model="query.name"/>
+            </th>
+            <th class="text-center">
+                <input type="text" class="form-control" ng-model="query.level"/>
+            </th>
+            <th class="text-center">
+                <input type="text" class="form-control" ng-model="query.class_name"/>
+            </th>
+            <th>
+
+            </th>
+        </tr>
+        </thead>
+        <tbody class="table-bordered">
+        <tr ng-repeat="spell in SpellbookVM.spells|orderBy:orderbyField:reverseSort|filter:query">
+            <td ng-click="SpellbookVM.showDetail(spell.id)">
+                {{spell.name}}
+            </td>
+            <td ng-click="SpellbookVM.showDetail(spell.id)" >
+                {{spell.level}}
+            </td>
+            <td ng-click="SpellbookVM.showDetail(spell.id)" >
+                {{spell.class_name}}
+            </td>
+            <td>
+                <button class="btn btn-warning" ng-click="SpellbookVM.deleteSpell(spell)"><i class="fa fa-remove"></i></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

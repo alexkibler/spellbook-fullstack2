@@ -1,0 +1,15 @@
+<div class="content">
+    <div class="jumbotron text-center">
+        <h2>Welcome to Alex Kibler's <em>D&D Next</em> Spellbook 2.0!</h2>
+    </div>
+    <div class="col-md-6" ng-repeat="post in HomeVM.posts">
+        <h2 class="text-center" ng-bind-html="post.title | unsafe"></h2>
+        <p class="text-center" ng-bind-html="post.body | unsafe"></p>
+    </div>
+
+    <div class="col-md-12 text-center">
+        <h3>I hope you enjoy the application, and if you have any questions, let me know at <a href="alex@alexkibler.com">alex@alexkibler.com</a></h3>
+        <br/>
+        <button class="btn btn-lg btn-primary" ui-sref="spells">Continue to the Spellbook!</button>
+    </div>
+</div>

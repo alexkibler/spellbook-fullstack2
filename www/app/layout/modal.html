@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{items.name}}</h3>
+</div>
+<div class="modal-body">
+    <p>Description: <span ng-bind-html="items.desc | unsafe"></span></p>
+    <p ng-show="items.higher_level"><em>At higher level: </em><span ng-bind-html="items.higher_level | unsafe"></span></p>
+    <p>Level: {{items.level}}</p>
+    <p>Supported Classes: {{items.class_name}}</p>
+    <p>School: {{items.school}}</p>
+    <p>Ritual? {{items.ritual}}</p>
+    <p>Duration: {{items.duration}}</p>
+    <p>Range: {{items.range}}</p>
+    <p>Concentration? {{items.concentration}}</p>
+    <p>Components: {{items.components}}</p>
+    <p>Casting Time: {{items.casting_time}}</p>
+    <p>Page: {{items.page}}</p>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">Finished</button>
+</div>

@@ -1,0 +1,30 @@
+<div ng-controller="ShellCtrl as shellVM">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Fifth Edition Spellbook</a>
+            </div>
+            <div class="collapse navbar-collapse"  id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <!--<li ui-sref-active="active"><a ui-sref="login"><i class="fa fa-sign-in"></i>&nbsp;Log in</a></li>-->
+                    <li ui-sref-active="active"><a ng-click="shellVM.navigate('home')"><i class="fa fa-home"></i>&nbsp;Home</a></li>
+                    <li ui-sref-active="active"><a ng-click="shellVM.navigate('spells')"><i class="fa fa-magic"></i>&nbsp;All Spells</a></li>
+                    <li ui-sref-active="active"><a ng-click="shellVM.navigate('spellbook')"><i class="fa fa-book"></i>&nbsp;My Spellbook</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="toast-container2"></div>
+
+    <div ng-show="shellVM.showSpinner" class="page-splash dissolve-animation">
+        <div data-spinner="vm.spinnerOptions"></div>
+        <div class="page-splash-message page-splash-message-subtle">{{shellVM.spinnerMessage}}</div>
+    </div>
+
+    <div ui-view id="ng-view" class="container slide-animation admin-content"></div>
+
+</div>

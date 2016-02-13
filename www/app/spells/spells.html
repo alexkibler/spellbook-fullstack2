@@ -1,0 +1,51 @@
+<div class="content text-center">
+
+    <br/>
+    <h2>All Spells</h2>
+    <p>Click a column header to sort, type in a text input to search, click a plus button to save that spell to your spellbook</p>
+    <table class="table-striped table-condensed" style="width:100%">
+        <thead>
+            <tr>
+                <th class="text-center" ng-click="orderbyField='name'; reverseSort = !reverseSort">
+                    <h4>Name <span ng-show="orderbyField == 'name'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+                </th>
+                <th class="text-center" ng-click="orderbyField='level'; reverseSort = !reverseSort">
+                    <h4>Level<span ng-show="orderbyField == 'level'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+                </th>
+                <th class="text-center" ng-click="orderbyField='class'; reverseSort = !reverseSort">
+                    <h4>Class<span ng-show="orderbyField == 'class'"><span ng-show="!reverseSort">&#9650;</span><span ng-show="reverseSort">&#9660;</span></span></h4>
+                </th>
+                <th>Save to Spellbook</th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    <input type="text" class="form-control" ng-model="query.name"/>
+                </th>
+                <th class="text-center">
+                    <input type="text" class="form-control" ng-model="query.level"/>
+                </th>
+                <th class="text-center">
+                    <input type="text" class="form-control" ng-model="query.class"/>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="table-bordered">
+            <tr ng-repeat="spell in SpellVM.spells|orderBy:orderbyField:reverseSort|filter:query">
+                <td ng-click="SpellVM.showDetail(spell)">
+                    {{spell.name}}
+                </td>
+                <td ng-click="SpellVM.showDetail(spell)" >
+                    {{spell.level}}
+                </td>
+                <td ng-click="SpellVM.showDetail(spell)" >
+                    {{spell.class}}
+                </td>
+
+                <td>
+                    <button class="btn btn-primary" ng-click="SpellVM.saveSpell(spell)"><i class="fa fa-plus"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
