@@ -32,13 +32,13 @@
         </thead>
         <tbody class="table-bordered">
             <tr ng-repeat="spell in SpellVM.spells|orderBy:orderbyField:reverseSort|filter:query">
-                <td ng-click="SpellVM.showDetail(spell)">
+                <td ng-click="SpellVM.showDetail(spell._id)">
                     {{spell.name}}
                 </td>
-                <td ng-click="SpellVM.showDetail(spell)" >
+                <td ng-click="SpellVM.showDetail(spell._id)" >
                     {{spell.level}}
                 </td>
-                <td ng-click="SpellVM.showDetail(spell)" >
+                <td ng-click="SpellVM.showDetail(spell._id)" >
                     {{spell.class}}
                 </td>
 
