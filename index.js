@@ -2,7 +2,11 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var configConstants = require('./serverConfig.js')
+try {
+var configConstants = require('./serverConfig.js');
+} catch (ex) {
+    console.log('running in prod, no configFile found')
+}
 mongoose.connect(process.env.MONGOLAB_URI || configConstants.mongoUri);
 app.use(express.static(__dirname + '/www'));
 app.set('port', (process.env.PORT || 5000));
