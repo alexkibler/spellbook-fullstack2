@@ -28,6 +28,12 @@ app.get('/', function (req, res)
     res.render('index.html');
 });
 
+
+app.get('/.well-known/acme-challenge/ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c', function(req, res) {
+    res.send('ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c.0l0A9LCqouGS0n1Ilnt9RUREWUAUB3zw6hTECtR48do');
+})
+
+
 var spells = require('./spell_routes.js')(app);
 
 app.listen(app.get('port'), function() {
