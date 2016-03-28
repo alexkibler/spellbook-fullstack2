@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 try {
-var configConstants = require('./serverConfig.js');
+var configConstants = require('./server/serverConfig.js');
 } catch (ex) {
     console.log('running in prod, no configFile found')
 }
@@ -29,12 +29,14 @@ app.get('/', function (req, res)
 });
 
 
-app.get('/.well-known/acme-challenge/ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c', function(req, res) {
-    res.send('ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c.0l0A9LCqouGS0n1Ilnt9RUREWUAUB3zw6hTECtR48do');
-})
+// app.get('/.well-known/acme-challenge/ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c', function(req, res) {
+//     res.send('ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c.0l0A9LCqouGS0n1Ilnt9RUREWUAUB3zw6hTECtR48do');
+// })
 
 
-var spells = require('./spell_routes.js')(app);
+var spells = require('./server/spells/spell_routes.js')(app);
+
+var spellbooks = require('./server/spellbook/spellbook_routes.js')(app);
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));

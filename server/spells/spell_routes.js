@@ -35,7 +35,7 @@ module.exports = function(app) {
         })
     });
     
-    app.put('/spell/:id', function (req, res) {
+    app.put('/api/spell/:id', function (req, res) {
         Spell.findById(req.params.id, function(err,spell) {
             if (err) {
                 res.json({info:'error during find  spell',error:err});
@@ -54,7 +54,7 @@ module.exports = function(app) {
         })
     });
     
-    app.delete('/spell/:id', function (req, res) {
+    app.delete('/api/spell/:id', function (req, res) {
         Spell.findByIdAndRemove(req.params.id, function(err) {
             if (err) {
               res.json({info: 'error during remove spell', error: err});  

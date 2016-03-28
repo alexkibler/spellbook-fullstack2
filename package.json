@@ -4,7 +4,8 @@
   "description": "A fullstack fifth edition spell book",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "nodemon": "nodemon"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -25,5 +26,8 @@
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.9.1"
+  }
 }
