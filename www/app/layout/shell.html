@@ -8,12 +8,25 @@
                 </button>
                 <a class="navbar-brand" href="#">Fifth Edition Spellbook</a>
             </div>
-            <div class="collapse navbar-collapse"  id="myNavbar">
+            <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <!--<li ui-sref-active="active"><a ui-sref="login"><i class="fa fa-sign-in"></i>&nbsp;Log in</a></li>-->
                     <li ui-sref-active="active"><a ng-click="shellVM.navigate('home')"><i class="fa fa-home"></i>&nbsp;Home</a></li>
                     <li ui-sref-active="active"><a ng-click="shellVM.navigate('spells')"><i class="fa fa-magic"></i>&nbsp;All Spells</a></li>
                     <li ui-sref-active="active"><a ng-click="shellVM.navigate('spellbook')"><i class="fa fa-book"></i>&nbsp;My Spellbook</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>{{shellVM.loginstatus}}</li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>

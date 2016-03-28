@@ -89,19 +89,7 @@ module.exports = function(app) {
                 } else {
                     res.json({info: 'couldn\'t find spell to delete'});
                 }
-                // spellbook.spells.findById(req.params.spellid, function(err2,spell){
-                //     if (err2) {
-                //         res.json({info: 'error finding spell to delete', error:err2});
-                //     }
-                //     if (spell) {
-                //         delete spellbook.spells[spell];
-                //         spellbook.save(function(err3) {
-                //             if (err3) {
-                //                 res.json({info: 'error deleting spell', error:err3});
-                //             }
-                //         })
-                //     }
-                // })
+                
             }
         })
     });

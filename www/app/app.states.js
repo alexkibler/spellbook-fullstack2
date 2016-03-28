@@ -2,6 +2,10 @@ var app = angular.module('spellbookClient');
 
 app.config(function ($stateProvider) {
     $stateProvider
+        .state('login', {
+            url:'/login',
+            templateUrl: 'app/login/login.html'
+        })
         .state('home', {
             url:'/home',
             templateUrl: 'app/home/home.html',
