@@ -61,13 +61,49 @@ module.exports = function(app) {
         })
     });
     
-    app.delete('/api/spell/:id', function (req, res) {
-        Spell.findByIdAndRemove(req.params.id, function(err) {
+    app.delete('/api/spellbook/:spellbookid/:spellid', function (req, res) {
+        Spellbook.findById(req.params.spellbookid, function(err,spellbook) {
             if (err) {
-              res.json({info: 'error during remove spell', error: err});  
+              res.json({info: 'error deleting spellbook', error: err});  
             };
+            if (spellbook) {
+                var found = false;
+                var index;
+                for (var i = 0; i < spellbook.spells.length; i++) {
+                    if (spellbook.spells[i]===req.params.spellid) {
+                        console.log('delete this spell!');
+                        found = true;
+                        index = i;
+                    }
+                }
+                if (found) {
+                    console.log('this is where we delete');
+                    spellbook.spells.splice(index,1);
+                    spellbook.save(function(err3) {
+                        if (err3) {
+                            res.json({info: 'error deleting spell', error:err3});
+                        } else {                            
+                            res.json({info: 'spellbook deleted successfully'});
+                        }
+                    })
+                } else {
+                    res.json({info: 'couldn\'t find spell to delete'});
+                }
+                // spellbook.spells.findById(req.params.spellid, function(err2,spell){
+                //     if (err2) {
+                //         res.json({info: 'error finding spell to delete', error:err2});
+                //     }
+                //     if (spell) {
+                //         delete spellbook.spells[spell];
+                //         spellbook.save(function(err3) {
+                //             if (err3) {
+                //                 res.json({info: 'error deleting spell', error:err3});
+                //             }
+                //         })
+                //     }
+                // })
+            }
         })
-        res.json({info: 'spell removed successfully'});
     });
     
 };
