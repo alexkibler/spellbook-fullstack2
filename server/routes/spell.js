@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var Spell = require('./spell_model.js');
+var Spell = require('../models/spell');
 
 module.exports = function(app) {
     
