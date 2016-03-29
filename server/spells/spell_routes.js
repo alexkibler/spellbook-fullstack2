@@ -14,7 +14,10 @@ module.exports = function(app) {
     });
     
     app.get('/api/spell', function (req, res) {
-        Spell.find(function(err, spells) {
+        var query = Spell.find({}).select({"name":1,"level":1,"class":1,"school":1});
+        
+        
+        query.exec(function(err, spells) {
             if (err) {
                 res.json({info:'an error during find spells',error:err});
             };
