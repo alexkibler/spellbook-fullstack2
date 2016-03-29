@@ -22,7 +22,21 @@
         }
 
         function showDetail(id){
-            
+            spellFactory.get({id:id}, function(data){
+                vm.spellDetail = data;
+                $modal.open({
+                    animation:true,
+                    templateUrl:'app/layout/modal.html',
+                    controller:'ModalInstanceCtrl as ModalVM',
+                    size:'lg',
+                    resolve:{
+                        items:function(){
+                            return vm.spellDetail;
+                        }
+                    }
+
+                });
+            });
         }
 
         function deleteSpell(spell){

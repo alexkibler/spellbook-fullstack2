@@ -10,6 +10,7 @@
         var vm = this;
         vm.showDetail = showDetail;
         vm.saveSpell = saveSpell;
+        vm.lookupSpellbookId = lookupSpellbookId;
 
 
         init();
@@ -52,7 +53,7 @@
         }
 
         function saveSpell(spell){
-            $http.put(`/api/spellbook/${vm.username}`,{spells:[spell._id]})
+            $http.put(`/api/spellbook/${vm.spellbookId}`,{spells:[spell._id]})
             .then(function(response) {                
                 toastr.info(spell.name + ' successfully saved to your spellbook');
             })
@@ -60,7 +61,16 @@
                 toastr.error(response);
             })
         }
-
+        
+        function lookupSpellbookId() {
+            $http.get(`/api/spellbook/${vm.username}`)
+            .then(function(response) {
+                vm.spellbookId = response.data._id
+            })
+            .catch(function(response) {
+                
+            })
+        }
 
     }
 })();
