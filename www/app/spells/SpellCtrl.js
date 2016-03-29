@@ -3,9 +3,9 @@
 
     angular.module('spellbookClient').controller('SpellCtrl', SpellCtrl);
 
-    SpellCtrl.$inject = ['spellFactory','$modal','store','toastr','$location','$rootScope'];
+    SpellCtrl.$inject = ['spellFactory','spellbookFactory','$modal','store','toastr','$location','$rootScope','$http'];
 
-    function SpellCtrl(spellFactory,$modal,store,toastr,$location,$rootScope) {
+    function SpellCtrl(spellFactory,spellbookFactory,$modal,store,toastr,$location,$rootScope,$http) {
         /* jshint validthis:true */
         var vm = this;
         vm.showDetail = showDetail;
@@ -52,13 +52,13 @@
         }
 
         function saveSpell(spell){
-            var savedSpells = store.get('spells');
-            if (!savedSpells){
-                savedSpells = [];
-            }
-            savedSpells.push(spell);
-            store.set('spells',savedSpells);
-            toastr.info(spell.name + ' successfully saved to your spellbook');
+            $http.put(`/api/spellbook/${vm.username}`,{spells:[spell._id]})
+            .then(function(response) {                
+                toastr.info(spell.name + ' successfully saved to your spellbook');
+            })
+            .catch(function(response) {                
+                toastr.error(response);
+            })
         }
 
 

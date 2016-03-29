@@ -56,7 +56,7 @@ module.exports = function(app) {
                     }
                 });
             } else {
-               res.json({info:'spell not found'}); 
+               res.json({info:'spellbook not found'}); 
             }
         })
     });

@@ -3,9 +3,9 @@
 
     angular.module('spellbookClient').controller('SpellbookCtrl', SpellbookCtrl);
 
-    SpellbookCtrl.$inject = ['spellFactory','spellbookFactory','$modal','toastr','$rootScope'];
+    SpellbookCtrl.$inject = ['spellFactory','spellbookFactory','$modal','toastr','$rootScope','$http'];
 
-    function SpellbookCtrl(spellFactory,spellbookFactory,$modal,toastr,$rootScope) {
+    function SpellbookCtrl(spellFactory,spellbookFactory,$modal,toastr,$rootScope,$http) {
         /* jshint validthis:true */
         var vm = this;
         vm.showDetail = showDetail;
@@ -30,7 +30,8 @@
 
         function getSpellbook() {
             var spells;
-            spellbookFactory.get({name:vm.username}, function(data){
+            $http.get(`/api/spellbook/${vm.username}`,{isArray:true})
+            .success(function(data){
                 $rootScope.showSpinner--;
                 spells = data.spells;
                 angular.forEach(spells,function(value,key) {
