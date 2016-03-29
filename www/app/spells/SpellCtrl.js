@@ -3,14 +3,13 @@
 
     angular.module('spellbookClient').controller('SpellCtrl', SpellCtrl);
 
-    SpellCtrl.$inject = ['spellFactory','spellbookFactory','$modal','store','toastr','$location','$rootScope','$http'];
+    SpellCtrl.$inject = ['spellFactory','$modal','store','toastr','$location','$rootScope'];
 
-    function SpellCtrl(spellFactory,spellbookFactory,$modal,store,toastr,$location,$rootScope,$http) {
+    function SpellCtrl(spellFactory,$modal,store,toastr,$location,$rootScope) {
         /* jshint validthis:true */
         var vm = this;
         vm.showDetail = showDetail;
         vm.saveSpell = saveSpell;
-        vm.lookupSpellbookId = lookupSpellbookId;
 
 
         init();
@@ -53,24 +52,15 @@
         }
 
         function saveSpell(spell){
-            $http.put(`/api/spellbook/${vm.spellbookId}`,{spells:[spell._id]})
-            .then(function(response) {                
-                toastr.info(spell.name + ' successfully saved to your spellbook');
-            })
-            .catch(function(response) {                
-                toastr.error(response);
-            })
+            var savedSpells = store.get('spells');
+            if (!savedSpells){
+                savedSpells = [];
+            }
+            savedSpells.push(spell);
+            store.set('spells',savedSpells);
+            toastr.info(spell.name + ' successfully saved to your spellbook');
         }
-        
-        function lookupSpellbookId() {
-            $http.get(`/api/spellbook/${vm.username}`)
-            .then(function(response) {
-                vm.spellbookId = response.data._id
-            })
-            .catch(function(response) {
-                
-            })
-        }
+
 
     }
 })();

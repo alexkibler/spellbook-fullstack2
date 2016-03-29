@@ -3,22 +3,21 @@
 
     angular.module('spellbookClient').controller('SpellbookCtrl', SpellbookCtrl);
 
-    SpellbookCtrl.$inject = ['spellFactory','spellbookFactory','$modal','toastr','$rootScope','$http'];
+    SpellbookCtrl.$inject = ['spellFactory','$modal','store','toastr'];
 
-    function SpellbookCtrl(spellFactory,spellbookFactory,$modal,toastr,$rootScope,$http) {
+    function SpellbookCtrl(spellFactory,$modal,store,toastr) {
         /* jshint validthis:true */
         var vm = this;
         vm.showDetail = showDetail;
         vm.deleteSpell = deleteSpell;
-        vm.getSpellbook = getSpellbook;
-        vm.spells = [];
+
 
         init();
 
         function init() {
             vm.title = "SpellbookCtrl";
-            
-            
+
+            vm.spells = store.get('spells');
         }
 
         function showDetail(id){
@@ -40,22 +39,15 @@
         }
 
         function deleteSpell(spell){
+            for (var i = 0; i < vm.spells.length; i++){
+                if (spell.id === vm.spells[i].id){
+                    vm.spells.splice(i,1);
+                }
+            }
+            store.set('spells',vm.spells);
+            toastr.info(spell.name + ' successfully removed from your spellbook');
         }
 
-        function getSpellbook() {
-            var spells;
-            $http.get(`/api/spellbook/${vm.username}`,{isArray:true})
-            .success(function(data){
-                $rootScope.showSpinner--;
-                spells = data.spells;
-                angular.forEach(spells,function(value,key) {
-                    spellFactory.get({id:value},function(data) {
-                        vm.spells.push(data);
-                    })
-                })
-            });
-            
-        }
 
     }
 })();
