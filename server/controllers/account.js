@@ -5,19 +5,29 @@ var configConstants = require('../serverConfig.js');
 
     exports.register = function(req, res) {
         // create a sample user
+        var admin = req.body.admin == true? true : false;
         var nick = new User({
             name: req.body.name,
             password: req.body.password,
-            admin: req.body.admin || false
+            admin: admin
+        });
+        User.findOne({
+            name: req.body.name
+        }, function(err, user) {
+            if (!user) {
+                // save the sample user
+                nick.save(function(err) {
+                    if (err) throw err;
+
+                    console.log('User saved successfully');
+                    res.json({ success: true });
+                });
+            } else {
+                res.json({success:false, message:"Account already exists"});
+            }
         });
 
-        // save the sample user
-        nick.save(function(err) {
-            if (err) throw err;
-
-            console.log('User saved successfully');
-            res.json({ success: true });
-        });
+        
     };
 
 

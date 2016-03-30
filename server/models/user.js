@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 var UserSchema = new Schema({
     name: { type: String, required: true, index: { unique: true } },
     password: { type: String, required: true },
-    role: {type: String, required: false}
+    admin: {type: String, required: false}
 });
 
 

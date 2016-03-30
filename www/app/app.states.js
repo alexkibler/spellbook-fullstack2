@@ -6,8 +6,7 @@ app.config(function ($stateProvider) {
             url:'/login',
             templateUrl: 'app/login/login.html',
             controller: 'LoginController',
-            controllerAs: 'LoginVM',
-            data: {}
+            controllerAs: 'LoginVM'
         })
         .state('register', {
             url:'/register',

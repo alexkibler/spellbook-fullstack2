@@ -18,7 +18,9 @@
         function init() {
             vm.title = "SpellCtrl";
             $rootScope.showSpinner = 1;
-            lookupSpellbookId();
+            if ($rootScope.token) {
+                lookupSpellbookId();                
+            }
             spellFactory.query(function(data){
                 $rootScope.showSpinner--;
                 vm.spells = data;
@@ -74,6 +76,7 @@
                         .then(function(response) {
                             if (response && response.data && response.data.id) {
                                 $rootScope.spellbookId = response.data.id;
+                                vm.spellbookId = response.data.id;
                             }
                         });
                 }

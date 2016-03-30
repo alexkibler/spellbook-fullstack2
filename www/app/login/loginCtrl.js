@@ -5,8 +5,8 @@
         .module('spellbookClient')
         .controller('LoginController', LoginController);
 
-    LoginController.$inject = ['$http','$state','$rootScope'];
-    function LoginController($http,$state,$rootScope) {
+    LoginController.$inject = ['$http','$state','$rootScope','toastr'];
+    function LoginController($http,$state,$rootScope,toastr) {
         var vm = this;
         vm.login = login;
 
@@ -22,13 +22,14 @@
         function login(username, password) {
             $http.post('/api/login', {name:username,password:password})
                 .then(function(response) {
-                    if (response && response.data && response.data.message!="Authentication failed. Wrong password.") {
+                    if (response && response.data && response.data.token) {
                         localStorage.setItem('token',JSON.stringify(response.data));
-                        $rootScope.token = response.data                   
+                        $rootScope.token = response.data    
+                        toastr.info(`Successfully logged in as ${$rootScope.token.username}`)               
                         $state.transitionTo('home');
                     }
-                    if (response && response.data && response.data.message=="Authentication failed. Wrong password.") {
-                        alert('Wrong password!');
+                    else {
+                        toastr.error(response.data.message);
                     }
                 })
                 .catch(function(err) {

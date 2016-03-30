@@ -5,8 +5,8 @@
         .module('spellbookClient')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$http'];
-    function RegisterController($http) {
+    RegisterController.$inject = ['$http','$state','toastr'];
+    function RegisterController($http,$state,toastr) {
         var vm = this;
         vm.register = register;
 
@@ -20,8 +20,9 @@
             if (password === password2) {
                 $http.post('/api/register', {name:username,password:password})
                     .then(function(response) {
-                        if (response && response.data && response.data.success) {                        
-                            $state.transitionTo('login',{message:'Successfully registered.  Please log in to continue.'});
+                        if (response && response.data && response.data.success) {
+                            toastr.info('Account created.  Please log in again to continue.')                        
+                            $state.transitionTo('login');
                         }
                     })
             }

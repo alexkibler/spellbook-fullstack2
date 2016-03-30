@@ -60,7 +60,7 @@ var Spellbook = require('../models/spellbook');
     };
     
     exports.deleteSpell = function (req, res) {
-        Spellbook.findById(req.params.spellbookid, function(err,spellbook) {
+        Spellbook.findById(req.params.spellbookId, function(err,spellbook) {
             if (err) {
               res.json({info: 'error deleting spellbook', error: err});  
             };
@@ -68,7 +68,7 @@ var Spellbook = require('../models/spellbook');
                 var found = false;
                 var index;
                 for (var i = 0; i < spellbook.spells.length; i++) {
-                    if (spellbook.spells[i]===req.params.spellid) {
+                    if (spellbook.spells[i]===req.params.spellId) {
                         console.log('delete this spell!');
                         found = true;
                         index = i;

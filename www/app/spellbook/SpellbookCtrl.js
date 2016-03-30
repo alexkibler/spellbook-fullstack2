@@ -40,12 +40,22 @@
         }
 
         function deleteSpell(spell){
+            $http({
+                    method:'delete',
+                    url:`/api/spellbook/${$rootScope.spellbookId}/${spell}`, 
+                    headers: {'x-access-token':$rootScope.token.token}
+                })
+                .then(function(response) {
+                    vm.spells = [];
+                    getSpellbook();   
+                });
         }
 
         function getSpellbook() {
             var spells;
             $http.get(`/api/spellbook/${$rootScope.token.username}`,{isArray:true})
             .success(function(data){
+                $rootScope.spellbookId = data._id;
                 $rootScope.showSpinner--;
                 spells = data.spells;
                 angular.forEach(spells,function(value,key) {

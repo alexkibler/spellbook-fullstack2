@@ -64,7 +64,7 @@ router.route('/spellbook/:name')
 router.route('/spellbook/:id')
     .put(spellbookController.addSpell);
    
-router.route('/spellbook/:spellbookId/:id')    
+router.route('/spellbook/:spellbookId/:spellId')    
     .delete(accountController.isLoggedIn, spellbookController.deleteSpell);     
 
 // { username}

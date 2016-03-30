@@ -13,7 +13,7 @@
                     <!--<li ui-sref-active="active"><a ui-sref="login"><i class="fa fa-sign-in"></i>&nbsp;Log in</a></li>-->
                     <li ui-sref-active="active"><a ng-click="shellVM.navigate('home')"><i class="fa fa-home"></i>&nbsp;Home</a></li>
                     <li ui-sref-active="active"><a ng-click="shellVM.navigate('spells')"><i class="fa fa-magic"></i>&nbsp;All Spells</a></li>
-                    <li ui-sref-active="active"><a ng-click="shellVM.navigate('spellbook')"><i class="fa fa-book"></i>&nbsp;My Spellbook</a></li>
+                    <li ui-sref-active="active" ng-show="shellVM.username"><a ng-click="shellVM.navigate('spellbook')"><i class="fa fa-book"></i>&nbsp;My Spellbook</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>{{shellVM.loginstatus}}</li>
@@ -23,7 +23,7 @@
                         <ul class="dropdown-menu">
                             <li ng-show="!shellVM.username"><a href="#/login">Log In</a></li>
                             <li ng-show="!shellVM.username"><a ng-click="shellVM.navigate('register')">Register</a></li>
-                            <li ng-show="shellVM.username"><a >Log out (currently placebo)</a></li>
+                            <li ng-show="shellVM.username"><a ng-click="shellVM.logout()">Log out</a></li>
                         </ul>
                     </li>
                 </ul>

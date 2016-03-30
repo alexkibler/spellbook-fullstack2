@@ -16,6 +16,7 @@
 
         function init() {
             vm.title = "ShellCtrl";
+            vm.logout = logout;
 
             $rootScope.token = JSON.parse(localStorage.getItem('token'));
             
@@ -51,6 +52,12 @@
 
         function navigate(state){
             $state.transitionTo(state);
+        }
+        
+        function logout() {
+            delete $rootScope.token;
+            localStorage.removeItem('token');
+            window.location.reload();
         }
 
     }
