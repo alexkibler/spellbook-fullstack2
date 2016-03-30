@@ -13,7 +13,7 @@
     ]);
 
     app.config(function ($stateProvider, $urlRouterProvider, $locationProvider,toastrConfig) {
-
+        $urlRouterProvider.otherwise('/home');
 
 //form_entry.w2.needs-more-info
 

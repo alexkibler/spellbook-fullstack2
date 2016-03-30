@@ -17,7 +17,7 @@ var configConstants = require('./server/serverConfig.js');
 }
 mongoose.connect(process.env.MONGOLAB_URI || configConstants.mongoUri);
 app.use(express.static(__dirname + '/www'));
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 80));
 app.set('superSecret', configConstants.secret);
 
 
