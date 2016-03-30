@@ -22,7 +22,11 @@
         }
 
         function showDetail(id){
+            
+            $rootScope.showSpinner++;
             spellFactory.get({id:id}, function(data){
+                
+            $rootScope.showSpinner--;
                 vm.spellDetail = data;
                 $modal.open({
                     animation:true,
@@ -40,12 +44,16 @@
         }
 
         function deleteSpell(spell){
+            
+            $rootScope.showSpinner++;
             $http({
                     method:'delete',
                     url:`/api/spellbook/${$rootScope.spellbookId}/${spell}`, 
                     headers: {'x-access-token':$rootScope.token.token}
                 })
                 .then(function(response) {
+                    
+            $rootScope.showSpinner--;
                     vm.spells = [];
                     getSpellbook();   
                 });
@@ -53,8 +61,11 @@
 
         function getSpellbook() {
             var spells;
+            
+            $rootScope.showSpinner++;
             $http.get(`/api/spellbook/${$rootScope.token.username}`,{isArray:true})
             .success(function(data){
+                $rootScope.showSpinner--;
                 $rootScope.spellbookId = data._id;
                 $rootScope.showSpinner--;
                 spells = data.spells;
