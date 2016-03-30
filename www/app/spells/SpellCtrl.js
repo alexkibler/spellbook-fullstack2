@@ -18,6 +18,7 @@
         function init() {
             vm.title = "SpellCtrl";
             $rootScope.showSpinner = 1;
+            lookupSpellbookId();
             spellFactory.query(function(data){
                 $rootScope.showSpinner--;
                 vm.spells = data;
@@ -63,9 +64,20 @@
         }
         
         function lookupSpellbookId() {
-            $http.get(`/api/spellbook/${vm.username}`)
+            $http.get(`/api/spellbook/${$rootScope.token.username}`)
             .then(function(response) {
-                vm.spellbookId = response.data._id
+                if (response && response.data && response.data.info != `spellbook not found for name: ${$rootScope.token.username}`) {
+                    vm.spellbookId = response.data._id;
+                } else {
+                    alert(`Spellbook not found for name: ${$rootScope.token.username}.  Creating one now. `);
+                    $http.post('/api/spellbook',{name:$rootScope.token.username,username:$rootScope.token.username})
+                        .then(function(response) {
+                            if (response && response.data && response.data.id) {
+                                $rootScope.spellbookId = response.data.id;
+                            }
+                        });
+                }
+                    
             })
             .catch(function(response) {
                 

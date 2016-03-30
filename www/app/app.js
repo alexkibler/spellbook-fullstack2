@@ -16,7 +16,6 @@
 
 
 //form_entry.w2.needs-more-info
-        $urlRouterProvider.otherwise('/');
 
         angular.extend(toastrConfig, {
             allowHtml: true,
@@ -66,7 +65,6 @@
                     $rootScope.previousState = fromState.name;
                     $rootScope.currentState = toState.name;
                 });
-            $state.transitionTo('home');
         }
 
     ]);

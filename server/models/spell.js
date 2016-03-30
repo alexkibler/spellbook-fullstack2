@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+
 var spellSchema = mongoose.Schema({
     name: String,
     desc: String,

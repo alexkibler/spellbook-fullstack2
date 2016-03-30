@@ -18,7 +18,7 @@
         function init() {
             vm.title = "SpellbookCtrl";
             
-            
+            getSpellbook();
         }
 
         function showDetail(id){
@@ -44,7 +44,7 @@
 
         function getSpellbook() {
             var spells;
-            $http.get(`/api/spellbook/${vm.username}`,{isArray:true})
+            $http.get(`/api/spellbook/${$rootScope.token.username}`,{isArray:true})
             .success(function(data){
                 $rootScope.showSpinner--;
                 spells = data.spells;

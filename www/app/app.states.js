@@ -4,7 +4,16 @@ app.config(function ($stateProvider) {
     $stateProvider
         .state('login', {
             url:'/login',
-            templateUrl: 'app/login/login.html'
+            templateUrl: 'app/login/login.html',
+            controller: 'LoginController',
+            controllerAs: 'LoginVM',
+            data: {}
+        })
+        .state('register', {
+            url:'/register',
+            templateUrl: 'app/register/register.html',
+            controller: 'RegisterController',
+            controllerAs: 'RegisterVM'
         })
         .state('home', {
             url:'/home',

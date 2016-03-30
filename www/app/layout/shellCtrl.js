@@ -3,9 +3,9 @@
 
     angular.module('spellbookClient').controller('ShellCtrl', ShellCtrl);
 
-    ShellCtrl.$inject = ['$rootScope', '$state'];
+    ShellCtrl.$inject = ['$rootScope', '$state','$scope'];
 
-    function ShellCtrl($rootScope, $state) {
+    function ShellCtrl($rootScope, $state,$scope) {
         /* jshint validthis:true */
         var vm = this;
         vm.navigate = navigate;
@@ -17,7 +17,15 @@
         function init() {
             vm.title = "ShellCtrl";
 
-
+            $rootScope.token = JSON.parse(localStorage.getItem('token'));
+            
+            if ($rootScope.token) {
+                vm.username = $rootScope.token.username;
+            }
+            $rootScope.$watch('token',function() {
+                if ($rootScope.token) 
+                    vm.username = $rootScope.token.username; 
+            })
             vm.showSpinner = false;
             vm.spinnerMessage = 'Retrieving data...';
 

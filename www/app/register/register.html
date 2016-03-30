@@ -6,9 +6,9 @@
         <input class="form-control" ng-model="username" type="text" ng-model="username" placeholder="Username:" />
 
         <input class="form-control" type="password" ng-model="password" placeholder="Password:" />
+        <input class="form-control" type="password" ng-model="password2" placeholder="Repeat Password:" />
 
 
-        <button class="btn btn-primary" ng-click="LoginVM.login(username,password)">Log In</button>
-        <a class="pull-right" ui-sref="register">Need an account? </a>
+        <button class="btn btn-primary" ng-click="RegisterVM.register(username,password,password2)">Log In</button>
     </form>
 </div>  

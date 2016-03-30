@@ -1,10 +1,8 @@
 var _ = require('lodash');
 var Spellbook = require('../models/spellbook');
 
-module.exports = function(app) {
     
-    
-    app.get('/api/spellbook/:name', function (req, res) {
+    exports.getSpellbook = function (req, res) {
         Spellbook.findOne({'name':req.params.name}, function(err,spellbook) {
             if (err) {
                 res.json({info:'error getting spellbook',error:err});
@@ -15,9 +13,9 @@ module.exports = function(app) {
                 res.json({info:'spellbook not found for name: ' + req.params.name});
             }
         })
-    });
+    };
     
-    app.post('/api/spellbook', function (req, res) {
+    exports.createSpellbook = function (req, res) {
         var newSpellbook = new Spellbook(req.body);
         console.log(req.body);
         newSpellbook.save(function(err) {
@@ -25,11 +23,11 @@ module.exports = function(app) {
                res.json({info: 'error during spellbook create', error: err})
            } 
         });
-        res.json({info: 'spellbook created successfully'});
-    });
+        res.json({info: 'spellbook created successfully', id:newSpellbook._id});
+    };
     
     
-    app.put('/api/spellbook/:id', function (req, res) {
+    exports.addSpell = function (req, res) {
         Spellbook.findById(req.params.id, function(err,spellbook) {
             if (err) {
                 res.json({info:'error during find spellbook',error:err});
@@ -59,9 +57,9 @@ module.exports = function(app) {
                res.json({info:'spellbook not found'}); 
             }
         })
-    });
+    };
     
-    app.delete('/api/spellbook/:spellbookid/:spellid', function (req, res) {
+    exports.deleteSpell = function (req, res) {
         Spellbook.findById(req.params.spellbookid, function(err,spellbook) {
             if (err) {
               res.json({info: 'error deleting spellbook', error: err});  
@@ -92,6 +90,5 @@ module.exports = function(app) {
                 
             }
         })
-    });
-    
-};
+    };
+   

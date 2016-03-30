@@ -6,6 +6,9 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var spellController = require('./server/controllers/spell');
+var spellbookController = require('./server/controllers/spellbook');
+var accountController = require('./server/controllers/account');
 
 try {
 var configConstants = require('./server/serverConfig.js');
@@ -23,6 +26,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+var router = express.Router();
 app.use(morgan('dev'));
 
 app.use(function(req, res, next) {
@@ -41,14 +45,41 @@ app.get('/', function (req, res)
 });
 
 
-// app.get('/.well-known/acme-challenge/ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c', function(req, res) {
-//     res.send('ux2YmcQOdZNu-9uCK1ME_kV4_0nOtOIUNP8373r0--c.0l0A9LCqouGS0n1Ilnt9RUREWUAUB3zw6hTECtR48do');
-// })
-var account = require('./server/routes/account')(app);
 
-var spells = require('./server/routes/spell')(app);
+router.route('/spell')
+    .get(spellController.getSpells)
+    .post(accountController.isLoggedIn,spellController.createSpell);
+    
+router.route('/spell/:id')
+    .get(spellController.getSpell)
+    .put(accountController.isLoggedIn,spellController.updateSpell)
+    .delete(accountController.isLoggedIn,spellController.deleteSpell);
+    
+router.route('/spellbook')
+    .post(spellbookController.createSpellbook);    
+    
+router.route('/spellbook/:name')
+    .get(spellbookController.getSpellbook);
+    
+router.route('/spellbook/:id')
+    .put(spellbookController.addSpell);
+   
+router.route('/spellbook/:spellbookId/:id')    
+    .delete(accountController.isLoggedIn, spellbookController.deleteSpell);     
 
-var spellbooks = require('./server/routes/spellbook')(app);
+// { username}
+router.route('/login')
+    .post(accountController.login)
+    
+router.route('/users')
+    .get(accountController.isLoggedIn, accountController.getAllUsers)
+
+// { username: foo, password: bar, admin: true/false (optional)}
+router.route('/register')
+    .post(accountController.register)
+
+app.use('/api',router);
+
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
