@@ -18,7 +18,7 @@ var configConstants = require('./server/serverConfig.js');
 mongoose.connect(process.env.MONGOLAB_URI || configConstants.mongoUri);
 app.use(express.static(__dirname + '/www'));
 app.set('port', (process.env.PORT || 80));
-app.set('superSecret', configConstants.secret);
+app.set('superSecret', process.env.SECRET || configConstants.secret);
 
 
 app.use(bodyParser.json({limit: '50mb'}));
