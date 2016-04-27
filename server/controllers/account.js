@@ -1,7 +1,11 @@
 
 var User = require('../models/user');
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
+try {
 var configConstants = require('../serverConfig.js');
+} catch (ex) {
+    console.log('running in prod, no configFile found')
+}
 
     exports.register = function(req, res) {
         // create a sample user
@@ -65,7 +69,7 @@ var configConstants = require('../serverConfig.js');
                         console.log('password did not match');
                         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                     } else {                
-                        var token = jwt.sign(user, configConstants.secret, {
+                        var token = jwt.sign(user, process.env.SECRET || configConstants.secret, {
                             expiresIn: 86400 // expires in 24 hours
                         });
 
@@ -91,7 +95,7 @@ var configConstants = require('../serverConfig.js');
         if (token) {
 
             // verifies secret and checks exp
-            jwt.verify(token, configConstants.secret, function(err, decoded) {
+            jwt.verify(token, process.env.SECRET ||configConstants.secret, function(err, decoded) {
                 if (err) {
                     return res.json({ success: false, message: 'Failed to authenticate token.' });
                 } else {
